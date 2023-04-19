@@ -1,0 +1,6 @@
+sudo ln flask.service /etc/systemd/system/flask.service
+
+sudo systemctl enable flask
+sudo systemctl start flask
+
+journalctl -u flask -f

@@ -1,0 +1,13 @@
+[Unit]
+Description=Final project
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/home/pi/project
+ExecStart=/usr/bin/python3 read_all_adc_better.py
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

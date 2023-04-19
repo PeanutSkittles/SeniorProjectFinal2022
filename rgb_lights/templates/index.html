@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title></title>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 1.2em;
+        }
+
+        .wrap {
+            text-align: center;
+        }
+
+        .power {
+            padding: 16px;
+        }
+
+        .filter {
+            width: 250px;
+            display: inline-block;
+            padding-right: 16px;
+            padding-bottom: 32px;
+        }
+
+        .filter h2 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 4px;
+        }
+
+        @media screen and (max-width: 900px) {
+          .filter {
+            width:  100%;
+            display: block;
+          }
+        }
+    </style>
+
+    <script type="text/javascript">
+        // var dataToSend = null;
+        // var dataSendTimeout = null;
+
+        function post(url, data) {
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }, 
+                body: JSON.stringify(data)
+            });
+        }
+
+        function onLoad() {
+            document.querySelectorAll('*[data-filter]').forEach(
+                el => el.addEventListener('input', e => {
+                    var input = e.target;
+                    var data = input.dataset;
+                    data.name = input.name;
+                    data.value = input.value;
+                    post('set_filter_value', data);
+                })
+            );
+
+            setInterval(() => 
+                fetch('power')
+                    .then(res => res.text())
+                    .then(text => document.getElementById('power_level').textContent = text)
+            , 1000);
+
+            // setTimeout(() => {
+            //     if (!dataToSend) return;
+
+            //     dataToSend.forEach((key, value) => {
+            //         ;
+            //     });
+
+            //     post('dataToSend', data);
+
+            //     fetch('power')
+            //         .then(res => res.text())
+            //         .then(text => document.getElementById('power_level').textContent = text)
+            // }, 20);
+        }
+
+        document.addEventListener('DOMContentLoaded', onLoad);
+    </script>
+</head>
+<body>
+    <div class="wrap">
+        <h1>Audio Synchronized Light Show</h1>
+
+        <p class="power">Watt Usage: <span id="power_level">-</span></p>
+
+        <div class="filter">
+            <h2>Filter 1</h2>
+
+            <label for="filter1_color">Color:</label>
+            <input type="color" name="filter1_color" data-filter="1" data-key="color">
+
+            <label for="filter1_freq">Frequency:</label>
+            <select class="freq" name="filter1_freq" id="filter1_freq" data-filter="1" data-key="freq">
+                <option value="1000">1000 Hz</option>
+                <option value="2000">2000 Hz</option>
+                <option value="3000">3000 Hz</option>
+                <option value="4000">4000 Hz</option>
+            </select>
+        </div>
+
+        <div class="filter">
+            <h2>Filter 2</h2>
+
+            <label for="filter2_color">Color:</label>
+            <input type="color" name="filter2_color" data-filter="2" data-key="color">
+
+            <label for="filter2_freq">Frequency:</label>
+            <select class="freq" name="filter2_freq" id="filter2_freq" data-filter="2" data-key="freq">
+                <option value="1000">1000 Hz</option>
+                <option value="2000">2000 Hz</option>
+                <option value="3000">3000 Hz</option>
+                <option value="4000">4000 Hz</option>
+            </select>
+        </div>
+
+        <div class="filter">
+            <h2>Filter 3</h2>
+
+            <label for="filter3_color">Color:</label>
+            <input type="color" name="filter3_color" data-filter="3" data-key="color">
+
+            <label for="filter3_freq">Frequency:</label>
+            <select class="freq" name="filter3_freq" id="filter3_freq" data-filter="3" data-key="freq">
+                <option value="1000">1000 Hz</option>
+                <option value="2000">2000 Hz</option>
+                <option value="3000">3000 Hz</option>
+                <option value="4000">4000 Hz</option>
+        </select>
+    </div>
+</body>
+</html>

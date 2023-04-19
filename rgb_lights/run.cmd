@@ -1,0 +1,1 @@
+flask run --reload --host 0.0.0.0 -p 1337
